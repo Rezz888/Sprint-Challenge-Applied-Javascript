@@ -29,15 +29,19 @@ Demonstrate your understanding of this week's concepts by answering the followin
 Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your team lead.
 
 1. What is the DOM?
+- DOM is an interface of the web pages. It allows programs to read and manipulate the page's content, structure and styles. 
 
 2. What is an event?
+- Java Script has events to provide dynamic interface to a website. These events are hooked to elements in the Document Object Model(DOM).
 
 3. What is an event listener?
+- An event listener is an inbuilt function in JavaScript which takes the event to listen for, and a second argument to be called whenever the described event gets fired.
 
 4. Why would we convert a NodeList into an Array?
+- We convert a NodeList into an Array to manipulate it by using array methods.
 
 5. What is a component?
-
+- Component is a reusable bits of code that can run independently in an webpage. An webpage can be made up of many components.
 ### Git Set up
 
 * [ ] Fork the project into your GitHub user account
