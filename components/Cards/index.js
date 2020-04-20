@@ -19,92 +19,48 @@
 //
 // Use your function to create a card for each of the articles and add the card to the DOM.
 
-const cardsX = document.querySelector('.cards-container');
-// cardsX.appendChild(component('testing')) -- test passed
-
-
-
-// https://lambda-times-backend.herokuapp.com/articles
-
-axios.get(`https://lambda-times-backend.herokuapp.com/articles`)
-.then(x => {
-    console.log('response', x.data.articles.bootstrap, x.data.articles.javascript, x.data.articles.jquery, x.data.articles.node, x.data.articles.technology)
-
-
-    const bootstrap = x.data.articles.bootstrap;
-    const javascript = x.data.articles.javascript;
-    const jquery = x.data.articles.jquery;
-    const node = x.data.articles.node;
-    const technology = x.data.articles.technology;
-
-
-    // boostrap is test dummy for the rest
-    
-  let bs = bootstrap.map( (x) => {
-    let b =  component("BootStrap Articles: " + x);
-    return b;
-   });
-
-   bs.forEach(x => {
-       cardsX.appendChild(x);
-   })
-
-    // boostrap is test dummy for the rest
-
-
-
-
-
-    javascript.forEach (x => {
-        cardsX.appendChild(component("JavaScript Articles: " + x));
+axios.get('https://lambda-times-backend.herokuapp.com/articles')
+  .then((response) => {
+    console.log(response);
+    let cardsCont = document.querySelector(".cards-container");
+    let arrayValues = Object.values(response.data.articles);
+    arrayValues.forEach(element => {
+      element.forEach(article => {
+        cardsCont.appendChild(createCard(article));
+        console.log("CreatedCard");
+      })
     })
+  })
+  .catch((error) => {
 
-    jquery.forEach (x => {
-        cardsX.appendChild(component("jQuery Articles:  " + x));
-    })
+  })
 
-    node.forEach (x => {
-        cardsX.appendChild(component("Node Articles:  " + x));
-    })
+function createCard(object){
 
-    technology.forEach (x => {
-        cardsX.appendChild(component("Technology Articles:  " + x));
-    })
+  let div = document.createElement("div");
+  div.classList.add("card");
 
+  let div2 = document.createElement("div");
+  div2.classList.add("headline");
+  div2.innerHTML = object.headline;
+  div.appendChild(div2);
 
-   
-})
-.catch(x => {
-    console.log('Error, please try again later.')
-})
+  let div3 = document.createElement("div");
+  div3.classList.add("author");
+  div.appendChild(div3);
 
+  let div4 = document.createElement("div");
+  div4.classList.add("img-container");
+  div3.appendChild(div4);
 
+  let img = document.createElement("img");
+  img.src = object.authorPhoto;
+  div4.appendChild(img);
 
+  let span = document.createElement("span");
+  span.innerHTML = "By " + object.authorName;
+  div3.appendChild(span);
 
+  return div;
 
-function component(arr) {
-    const cardX = document.createElement('div');
-    cardX.classList.add('card');
-    cardX.textContent = arr;
-
-    const headlineX = document.createElement('div');
-    headlineX.classList.add('headline');
-    cardX.appendChild(headlineX);
-
-    const name = document.createElement('div');
-    name.classList.add('author');
-    cardX.appendChild(name);
-
-    const imgContainer = document.createElement('div');
-    imgContainer.classList.add('img-container');
-    cardX.appendChild(imgContainer);
-
-    const image = document.createElement('img');
-    cardX.appendChild(image);
-
-    const authorX = document.createElement('span');
-    cardX.appendChild(authorX);
-
-
-    return cardX;
 }
