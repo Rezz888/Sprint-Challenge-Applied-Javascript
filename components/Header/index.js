@@ -21,7 +21,7 @@ function Header() {
     // first span
     const dateInfo = document.createElement('span');
     dateInfo.classList.add('date');
-    dateInfo.textContent = ('SMARCH 28, 2019');
+    dateInfo.textContent = ('MARCH 28, 2019');
 
     // h1 text
     const headerText = document.createElement('h1');
