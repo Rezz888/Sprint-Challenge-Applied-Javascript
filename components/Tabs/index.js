@@ -8,31 +8,96 @@
 //  Each tab should look like this:
 //    <div class="tab">topic here</div>
 
-const topicComponent = document.querySelector('.topics');
+
+const topicList = document.querySelector('div.topics');
+
+axios.get('https://lambda-times-backend.herokuapp.com/topics')
+  
+   .then((response) =>{
+        console.log(response.data.topics)
+
+        response.data.topics.forEach((topic) => {
+            console.log(topic)
+
+            tabComponent(topic);
+        })
+   })
+
+   .catch((err) => {
+
+   })
 
 
-axios.get(`https://lambda-times-backend.herokuapp.com/topics`)
-.then( (response) => {
-    response.data.topics.forEach(topItem => {
-        tabComponent(topItem)
-    })
+   function tabComponent(e){
+//   Create Element
+   const tab = document.createElement('div');
+
+//   Adding class for styling
+   tab.classList.add('tab');
+
+//   Adding content/text
+   tab.textContent = e;
+
+//    Appending
+   topicList.appendChild(tab)
+   
+   return tab;
+   }
    
 
-})
-.catch((err) => {
-    console.log('Error, please try again later.')
-})
 
 
 
-function tabComponent(arr) {
 
-        const anItem = document.createElement('div');
-        anItem.classList.add('tab');
-        anItem.textContent = arr
 
-        topicComponent.appendChild(anItem)
 
-        return anItem;
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const topicComponent = document.querySelector('.topics');
+
+
+// axios.get(`https://lambda-times-backend.herokuapp.com/topics`)
+// .then( (response) => {
+//     response.data.topics.forEach(topItem => {
+//         tabComponent(topItem)
+//     })
+   
+
+// })
+// .catch((err) => {
+//     console.log('Error, please try again later.')
+// })
+
+
+
+// function tabComponent(arr) {
+
+//         const anItem = document.createElement('div');
+//         anItem.classList.add('tab');
+//         anItem.textContent = arr
+
+//         topicComponent.appendChild(anItem)
+
+//         return anItem;
+
+// }

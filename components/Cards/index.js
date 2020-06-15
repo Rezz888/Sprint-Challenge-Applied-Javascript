@@ -19,15 +19,17 @@
 //
 // Use your function to create a card for each of the articles and add the card to the DOM.
 
+let cardsCont = document.querySelector(".cards-container");
+
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
   .then((response) => {
     console.log(response);
-    let cardsCont = document.querySelector(".cards-container");
+    
     let arrayValues = Object.values(response.data.articles);
     arrayValues.forEach(element => {
       element.forEach(article => {
         cardsCont.appendChild(createCard(article));
-        console.log("CreatedCard");
+        console.log("Cards creating are done");
       })
     })
   })
@@ -42,7 +44,7 @@ function createCard(object){
 
   let div2 = document.createElement("div");
   div2.classList.add("headline");
-  div2.innerHTML = object.headline;
+  div2.textContent = object.headline;
   div.appendChild(div2);
 
   let div3 = document.createElement("div");
@@ -58,7 +60,7 @@ function createCard(object){
   div4.appendChild(img);
 
   let span = document.createElement("span");
-  span.innerHTML = "By " + object.authorName;
+  span.textContent = `By ${object.authorName}`;
   div3.appendChild(span);
 
   return div;
