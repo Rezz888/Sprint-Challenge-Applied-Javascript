@@ -19,50 +19,57 @@
 //
 // Use your function to create a card for each of the articles and add the card to the DOM.
 
-let cardsCont = document.querySelector(".cards-container");
+const CardContainer = document.querySelector('div.cards-container');
 
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
-  .then((response) => {
-    console.log(response);
-    
-    let arrayValues = Object.values(response.data.articles);
-    arrayValues.forEach(element => {
-      element.forEach(article => {
-        cardsCont.appendChild(createCard(article));
-        console.log("Cards creating are done");
-      })
-    })
-  })
-  .catch((error) => {
 
-  })
+.then((response) => {
+    //  console.log(response.data.articles)
+     const arrayValues = Object.values(response.data.articles);  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Object/values
+    //  console.log(arrayValues)
+     arrayValues.forEach((semiFinal)=> {
+      //  console.log(semiFinal)
+       semiFinal.forEach((final)=>{
+        //  console.log(final)
+        CardContainer.appendChild(cardComponent(final))
+       })
+        
 
-function createCard(object){
+        
+     })
+})
 
-  let div = document.createElement("div");
-  div.classList.add("card");
+.catch((err) => {
+   console.log(err)
+})
 
-  let div2 = document.createElement("div");
-  div2.classList.add("headline");
-  div2.textContent = object.headline;
-  div.appendChild(div2);
+function cardComponent(obj){
+  // Creating element
+  const cardComponent = document.createElement('div');
+  const headLine = document.createElement('div');
+  const author = document.createElement('div');
+  const imgContainer = document.createElement('div');
+  const img = document.createElement('img');
+  const span = document.createElement('span');
 
-  let div3 = document.createElement("div");
-  div3.classList.add("author");
-  div.appendChild(div3);
+  // Adding class to style
+  cardComponent.classList.add('card');
+  headLine.classList.add('headline');
+  author.classList.add('author');
+  imgContainer.classList.add('img-container');
 
-  let div4 = document.createElement("div");
-  div4.classList.add("img-container");
-  div3.appendChild(div4);
+  // Programmatically adding content
+  headLine.textContent = obj.headline;
+  img.src = obj.authorPhoto;
+  span.textContent = obj.authorName;
 
-  let img = document.createElement("img");
-  img.src = object.authorPhoto;
-  div4.appendChild(img);
+  // Appending
+  cardComponent.appendChild(headLine);
+  cardComponent.appendChild(author);
+  author.appendChild(imgContainer);
+  author.appendChild(span);
+  imgContainer.appendChild(img);
 
-  let span = document.createElement("span");
-  span.textContent = `By ${object.authorName}`;
-  div3.appendChild(span);
-
-  return div;
-
+  return cardComponent;
+  
 }

@@ -14,10 +14,10 @@ const topicList = document.querySelector('div.topics');
 axios.get('https://lambda-times-backend.herokuapp.com/topics')
   
    .then((response) =>{
-        console.log(response.data.topics)
+        // console.log(response.data.topics)
 
         response.data.topics.forEach((topic) => {
-            console.log(topic)
+            // console.log(topic)
 
             tabComponent(topic);
         })
@@ -35,7 +35,7 @@ axios.get('https://lambda-times-backend.herokuapp.com/topics')
 //   Adding class for styling
    tab.classList.add('tab');
 
-//   Adding content/text
+//  Programmatically adding content/text
    tab.textContent = e;
 
 //    Appending
